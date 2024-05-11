@@ -1,5 +1,6 @@
 import 'package:estate_listings/models/home/user_list_model.dart';
 import 'package:estate_listings/repository/home_repository/home_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../data/response/status.dart';
@@ -33,8 +34,10 @@ class HomeViewModel extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
     }).onError((error, stackTrace) {
-      print(error);
-      print(stackTrace);
+      if (kDebugMode) {
+        print(error);
+        print(stackTrace);
+      }
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
     });

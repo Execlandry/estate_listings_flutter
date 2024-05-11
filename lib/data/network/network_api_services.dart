@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
   @override
-  Future<dynamic> getApi(String url) async {
+  Future<dynamic> getApi(String url, {Map<String, String>? headers}) async {
     if (kDebugMode) {
       print(url);
     }
@@ -16,8 +16,9 @@ class NetworkApiServices extends BaseApiServices {
 
     try {
       final response =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+          await http.get(Uri.parse(url),headers: headers).timeout(const Duration(seconds: 10));
           responseJson = returnResponse(response);
+
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {

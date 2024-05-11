@@ -18,7 +18,8 @@ class SplashViewServices {
         if (value.isLogin==false || value.isLogin.toString()=='null') {
           Timer(Duration(seconds: 3), () => Get.toNamed(RouteName.loginView));
         } else {
-          Timer(Duration(seconds: 3), () => Get.toNamed(RouteName.homeView));
+          //change this path to make redirect after splash screen 
+          Timer(Duration(seconds: 3), () => Get.toNamed(RouteName.userProfileView));
 
         }
       });
