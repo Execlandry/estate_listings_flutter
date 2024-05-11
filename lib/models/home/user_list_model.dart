@@ -1,76 +1,50 @@
 class UserListModel {
-  int? id;
-  String? createdAt;
-  String? updatedAt;
-  int? beds;
-  int? baths;
-  int? area;
-  String? city;
-  String? code;
-  String? street;
-  String? streetNr;
-  int? price;
-  int? byUserId;
-  DateTime? deletedAt;
-  DateTime? soldAt;
-  String? latitude;
-  String? longitude;
+  List<Data>? data;
 
-  UserListModel(
-      {this.id,
-      this.createdAt,
-      this.updatedAt,
-      this.beds,
-      this.baths,
-      this.area,
-      this.city,
-      this.code,
-      this.street,
-      this.streetNr,
-      this.price,
-      this.byUserId,
-      this.deletedAt,
-      this.soldAt,
-      this.latitude,
-      this.longitude});
+  UserListModel({this.data});
 
   UserListModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    beds = json['beds'];
-    baths = json['baths'];
-    area = json['area'];
-    city = json['city'];
-    code = json['code'];
-    street = json['street'];
-    streetNr = json['street_nr'];
-    price = json['price'];
-    byUserId = json['by_user_id'];
-    deletedAt = json['deleted_at'];
-    soldAt = json['sold_at'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
+  int? id;
+  String? name;
+  String? email;
+  String? createdAt;
+  String? updatedAt;
+
+  Data({this.id, this.name, this.email, this.createdAt, this.updatedAt});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    data['beds'] = this.beds;
-    data['baths'] = this.baths;
-    data['area'] = this.area;
-    data['city'] = this.city;
-    data['code'] = this.code;
-    data['street'] = this.street;
-    data['street_nr'] = this.streetNr;
-    data['price'] = this.price;
-    data['by_user_id'] = this.byUserId;
-    data['deleted_at'] = this.deletedAt;
-    data['sold_at'] = this.soldAt;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
     return data;
   }
 }

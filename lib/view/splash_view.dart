@@ -1,3 +1,4 @@
+import 'package:estate_listings/view_models/services/splash_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,13 +12,13 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
 
-  // SplashViewServices splashView = SplashViewServices();
+  SplashViewServices splashView = SplashViewServices();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // splashView.isLogin();
+    splashView.isLogin();
   }
   @override
   Widget build(BuildContext context) {

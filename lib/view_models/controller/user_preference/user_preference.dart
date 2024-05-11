@@ -1,30 +1,31 @@
+import 'package:estate_listings/models/login/user_api_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserPreferences {
-  // Future<bool> saveUser(UserModel responseModel) async {
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   sp.setString("token", responseModel.token.toString());
-  //   sp.setBool("isLogin", responseModel.isLogin!);
+class UserPreferences{
+  Future<bool> saveUser(UserApiModel responseModel) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString("accessToken", responseModel.accessToken.toString());
+    sp.setString("tokenType", responseModel.tokenType.toString());
+    sp.setBool("isLogin", responseModel.isLogin!);
+    return true;
+  }
 
-  //   return true;
-  // }
+  Future<UserApiModel> getUser() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String? accessToken = sp.getString("accessToken");
+    String? tokenType = sp.getString("tokenType");
+    bool? isLogin = sp.getBool("isLogin");
 
-  // Future<UserModel> getUser() async {
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   String? token = sp.getString("token");
-  //   bool? isLogin = sp.getBool("isLogin");
+    return UserApiModel(
+      accessToken: accessToken,
+      tokenType: tokenType,
+      isLogin: isLogin,
+    );
+  }
 
-  //   return UserModel(
-  //     token: token,
-  //     isLogin: isLogin,
-  //   );
-  // }
-
-  // Future<bool> removeUser()async{
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   sp.clear();
-  //   return true;
-    
-    
-  // }
+  Future<bool> removeUser() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.clear();
+    return true;
+  }
 }
