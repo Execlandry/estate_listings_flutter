@@ -6,4 +6,5 @@ class AppUrl {
   static String userApi = "$baseUrl/user-api";
 
   static String userListingsApi = "$baseUrl/user-listings";
+  static String userOffersApi = "$baseUrl/user-listings/";
 }
