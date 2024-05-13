@@ -38,6 +38,12 @@ class AppRoutes {
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 250)),
 
+          GetPage(
+          name: RouteName.dashboardView, 
+          page: () =>  DashboardView(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 250)),
+
           
       ];
 }
