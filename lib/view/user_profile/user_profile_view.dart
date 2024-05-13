@@ -28,19 +28,7 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {
-              userPreference.removeUser().then((value) {
-                Get.toNamed(RouteName.loginView);
-              });
-            },
-            icon: Icon(Icons.logout),
-          ),
-        ],
-      ),
+      
       body: Obx(() {
         switch (userProfileController.rxRequestStatus.value) {
           case Status.LOADING:

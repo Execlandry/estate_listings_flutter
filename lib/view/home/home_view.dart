@@ -74,13 +74,13 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-              onPressed: () {
-                userPreference.removeUser().then((value) {
-                  Get.toNamed(RouteName.loginView);
-                });
-              },
-              icon: Icon(Icons.logout))
+          // IconButton(
+          //     onPressed: () {
+          //       userPreference.removeUser().then((value) {
+          //         Get.toNamed(RouteName.loginView);
+          //       });
+          //     },
+          //     icon: Icon(Icons.logout))
         ],
       ),
     );

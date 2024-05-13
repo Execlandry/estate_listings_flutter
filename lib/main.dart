@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
 
       translations: Languages(),
-      locale: Locale('hi'),
+      locale: Locale('En'),
       fallbackLocale: Locale('en','US'),
 
 

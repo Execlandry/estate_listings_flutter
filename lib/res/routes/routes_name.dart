@@ -7,5 +7,4 @@ class RouteName{
   static const String dashboardView='/dashboard_view';
 
 
-
 }
