@@ -1,11 +1,25 @@
 // import 'package:estate_listings/models/home/HomeEstateApiModel.dart';
 // import 'package:estate_listings/repository/home_repository/home_repository.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:get/get.dart';
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 // import '../../../data/response/status.dart';
 
-// class HomeViewModel extends GetxController {
+class HomeViewModel extends GetxController {
+  var isFilterMenuVisible = false.obs;
+  var blink = true.obs;
+
+  HomeViewModel() {
+    Timer.periodic(Duration(milliseconds: 1500), (timer) {
+      blink.value = !blink.value;
+    });
+  }
+
+  void toggleFilterMenu() {
+    isFilterMenuVisible.value = !isFilterMenuVisible.value;
+  }
 //   final _api = HomeRepository();
 
 //   final rxRequestStatus = Status.LOADING.obs;
@@ -42,4 +56,4 @@
 //       setRxRequestStatus(Status.ERROR);
 //     });
 //   }
-// }
+}
