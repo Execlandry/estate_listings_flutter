@@ -1,12 +1,12 @@
 import 'dart:ffi';
 
-class UserListingsModel {
+class UserEstatesModel {
   Filters? filters;
   Listings? listings;
 
-  UserListingsModel({this.filters, this.listings});
+  UserEstatesModel({this.filters, this.listings});
 
-  UserListingsModel.fromJson(Map<String, dynamic> json) {
+  UserEstatesModel.fromJson(Map<String, dynamic> json) {
     filters =
         json['filters'] != null ? new Filters.fromJson(json['filters']) : null;
     listings = json['listings'] != null

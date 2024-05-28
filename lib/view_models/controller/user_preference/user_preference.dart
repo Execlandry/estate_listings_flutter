@@ -1,8 +1,8 @@
-import 'package:estate_listings/models/login/user_api_model.dart';
+import 'package:estate_listings/models/login/user_login_api_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserPreferences{
-  Future<bool> saveUser(UserApiModel responseModel) async {
+class UserPreferences {
+  Future<bool> saveUser(UserLoginApiModel responseModel) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString("accessToken", responseModel.accessToken.toString());
     sp.setString("tokenType", responseModel.tokenType.toString());
@@ -10,13 +10,13 @@ class UserPreferences{
     return true;
   }
 
-  Future<UserApiModel> getUser() async {
+  Future<UserLoginApiModel> getUser() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String? accessToken = sp.getString("accessToken");
     String? tokenType = sp.getString("tokenType");
     bool? isLogin = sp.getBool("isLogin");
 
-    return UserApiModel(
+    return UserLoginApiModel(
       accessToken: accessToken,
       tokenType: tokenType,
       isLogin: isLogin,

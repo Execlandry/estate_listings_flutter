@@ -1,6 +1,4 @@
-
-
-import 'package:estate_listings/models/login/user_api_model.dart';
+import 'package:estate_listings/models/login/user_login_api_model.dart';
 import 'package:estate_listings/repository/login_repository/login_repository.dart';
 import 'package:estate_listings/res/routes/routes_name.dart';
 import 'package:estate_listings/utils/utils.dart';
@@ -19,7 +17,7 @@ class LoginViewModel extends GetxController {
   final passwordFocusNode = FocusNode().obs;
 
   RxBool loading = false.obs;
-  void loginApi() {
+  void userLoginApi() {
     loading.value = true;
 
     Map data = {
@@ -27,26 +25,23 @@ class LoginViewModel extends GetxController {
       'password': passwordController.value.text,
     };
 
-    _api.loginApi(data).then((value) {
-
+    _api.userLoginApi(data).then((value) {
       loading.value = false;
 
       if (value['error'] == 'user not found') {
         Utils.snackBar("Login", value['error']);
-      } 
-      
-      else {
-        UserApiModel userApiModel =UserApiModel(accessToken: value['access_token'],tokenType: value['token_type'],isLogin: true);
+      } else {
+        UserLoginApiModel userLoginApiModel = UserLoginApiModel(
+            accessToken: value['access_token'],
+            tokenType: value['token_type'],
+            isLogin: true);
 
-        userPreference.saveUser(userApiModel).then((value) {
+        userPreference.saveUser(userLoginApiModel).then((value) {
           Get.delete<LoginViewModel>();
-          Get.toNamed(RouteName.homeView)!.then((value) {});
+          Get.toNamed(RouteName.dashboardView)!.then((value) {});
         }).onError((error, stackTrace) {});
         Utils.snackBar("Login", "Login successful");
-
       }
-
-
     }).onError((error, stackTrace) {
       print(error.toString());
       loading.value = false;

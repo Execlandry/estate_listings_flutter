@@ -1,3 +1,4 @@
+import 'package:estate_listings/res/colors/app_color.dart';
 import 'package:estate_listings/res/components/general_exceptions_widget.dart';
 import 'package:estate_listings/res/components/internet_exceptions_widget.dart';
 import 'package:estate_listings/view_models/controller/user_preference/user_preference.dart';
@@ -26,38 +27,40 @@ class _UserOfferViewState extends State<UserOfferView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Obx(() {
-      switch (userOffersController.rxRequestStatus.value) {
-        case Status.LOADING:
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        case Status.ERROR:
-          if (userOffersController.error.value == 'No Internet:') {
-            return InternetExceptionsWidget(
-              onPress: () {
-                userOffersController.refreshApi();
-              },
-            );
-          } else {
-            return GeneralExceptionsWidget(
-              onPress: () {
-                userOffersController.refreshApi();
-              },
-            );
-          }
-        case Status.COMPLETED:
-          return Obx(() => ListView.builder(
-              itemCount: userOffersController
-                  .userOffersList.value.listing?.offers!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(userOffersController
-                      .userOffersList.value.listing!.offers![index].bidder!.name
-                      .toString()),
+    return Scaffold(
+        backgroundColor: AppColor.transparentColor,
+        body: Obx(() {
+          switch (userOffersController.rxRequestStatus.value) {
+            case Status.LOADING:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case Status.ERROR:
+              if (userOffersController.error.value == 'No Internet:') {
+                return InternetExceptionsWidget(
+                  onPress: () {
+                    userOffersController.refreshApi();
+                  },
                 );
-              }));
-      }
-    }));
+              } else {
+                return GeneralExceptionsWidget(
+                  onPress: () {
+                    userOffersController.refreshApi();
+                  },
+                );
+              }
+            case Status.COMPLETED:
+              return Obx(() => ListView.builder(
+                  itemCount: userOffersController
+                      .userOffersList.value.listing?.offers!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(userOffersController.userOffersList.value
+                          .listing!.offers![index].bidder!.name
+                          .toString()),
+                    );
+                  }));
+          }
+        }));
   }
 }
