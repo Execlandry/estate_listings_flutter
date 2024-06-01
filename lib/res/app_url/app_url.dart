@@ -8,6 +8,8 @@ class AppUrl {
 
   //Home Screen related api
   static String homeEstateApi = "$baseUrl/listing";
+  static String homeListingFilterApi = "$baseUrl/listing/";
+
   // static String homeEstateApi = "$baseUrl/user-api";//to fetch users on homepage
 
   //currently logged in user data

@@ -1,48 +1,13 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:estate_listings/models/home/home_estate_api_model.dart';
-import 'package:estate_listings/res/assets/image_assets.dart';
+import 'package:estate_listings/data/response/status.dart';
 import 'package:estate_listings/res/colors/app_color.dart';
-import 'package:estate_listings/res/fonts/app_fonts.dart';
 import 'package:estate_listings/view/home/widget/home_estate_tile_widget.dart';
 import 'package:estate_listings/view/home/widget/home_filter_view_widget.dart';
 import 'package:estate_listings/view_models/controller/home/home_view_model.dart';
-import 'package:estate_listings/view_models/controller/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  final homeVM = Get.put(HomeViewModel());
-
-  List<HomeEstateApiModel> estateMenu = [
-    HomeEstateApiModel(
-      name: "Crestwood Estates",
-      price: "350.000",
-      imagePath: [ImageAssets.house1, ImageAssets.splashView],
-      rating: "3.4",
-    ),
-    HomeEstateApiModel(
-      name: "Bluebell Grove",
-      price: "450.000",
-      imagePath: [ImageAssets.house1, ImageAssets.splashView],
-      rating: "4.5",
-    ),
-  ];
-
-  UserPreferences userPreference = UserPreferences();
-  final dropdownValue = 'Option 1'.obs;
-
-  @override
-  void initState() {
-    super.initState();
-    // homeVM.userList();
-  }
+class HomeView extends StatelessWidget {
+  final HomeViewModel homeVM = Get.put(HomeViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +59,14 @@ class _HomeViewState extends State<HomeView> {
               () => homeVM.isFilterMenuVisible.value
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: HomeFilterViewWidget(),
+                      child: HomeFilterViewWidget(
+                        onClearFilters: () {
+                          // homeVM.clearFilters();
+                        },
+                        onApplyFilters: (filters) {
+                          homeVM.homeListingFilterApi(filters: filters);
+                        },
+                      ),
                     )
                   : SizedBox.shrink(),
             ),
@@ -110,29 +82,28 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 350,
-              child: Center(
-                child: CarouselSlider.builder(
-                  itemCount: estateMenu.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: HomeEstateTileWidget(
-                        homeEstateApiModel: estateMenu[index],
-                      ),
-                    );
+            Obx(() {
+              if (homeVM.rxRequestStatus.value == Status.LOADING) {
+                return Center(child: CircularProgressIndicator());
+              } else if (homeVM.rxRequestStatus.value == Status.ERROR) {
+                return Center(child: Text("Error loading listings"));
+              } else if (homeVM.rxRequestStatus.value == Status.COMPLETED) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount:
+                      homeVM.homeListFilterList.value.listings?.data?.length ??
+                          0,
+                  itemBuilder: (context, index) {
+                    final estate =
+                        homeVM.homeListFilterList.value.listings!.data![index];
+                    // return HomeEstateTileWidget(homeEstateApiModel: estate);
+                    return HomeEstateTileWidget();
                   },
-                  options: CarouselOptions(
-                    height: 700,
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                    autoPlay: true,
-                    viewportFraction: 0.6,
-                  ),
-                ),
-              ),
-            ),
+                );
+              }
+              return SizedBox.shrink();
+            }),
           ],
         ),
       ),

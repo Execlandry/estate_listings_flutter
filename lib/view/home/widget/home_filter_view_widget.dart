@@ -1,9 +1,17 @@
-import 'package:estate_listings/res/colors/app_color.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+typedef void FilterCallback(Map<String, dynamic> filters); // Define a callback type
+
 class HomeFilterViewWidget extends StatelessWidget {
+  final VoidCallback onClearFilters; // Callback for clear button
+  final FilterCallback onApplyFilters; // Callback for apply filters button
+
+  HomeFilterViewWidget({
+    required this.onClearFilters,
+    required this.onApplyFilters,
+  });
+
   final TextEditingController priceFromController = TextEditingController();
   final TextEditingController priceToController = TextEditingController();
   final TextEditingController areaFromController = TextEditingController();
@@ -21,19 +29,21 @@ class HomeFilterViewWidget extends StatelessWidget {
     areaToController.clear();
     selectedBeds.value = '1';
     selectedBaths.value = '1';
+    onClearFilters(); // Call the callback function
   }
 
   void applyFilters() {
-    // Implement your filter logic here
-    if (kDebugMode) {
-      print("Filters applied:");
-      print("Price From: ${priceFromController.text}");
-      print("Price To: ${priceToController.text}");
-      print("Area From: ${areaFromController.text}");
-      print("Area To: ${areaToController.text}");
-      print("Beds: ${selectedBeds.value}");
-      print("Baths: ${selectedBaths.value}");
-    }
+    // Create a Map to hold the filter values
+    Map<String, dynamic> filters = {
+      'priceFrom': priceFromController.text,
+      'priceTo': priceToController.text,
+      'areaFrom': areaFromController.text,
+      'areaTo': areaToController.text,
+      'beds': selectedBeds.value,
+      'baths': selectedBaths.value,
+    };
+    // Call the callback function with the filter values
+    onApplyFilters(filters);
   }
 
   @override
@@ -165,7 +175,7 @@ class HomeFilterViewWidget extends StatelessWidget {
                 ),
                 child: Text(
                   'Clear',
-                  style: TextStyle(color: AppColor.blackColor),
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),
@@ -179,7 +189,7 @@ class HomeFilterViewWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text('Filter',style: TextStyle(color: AppColor.blackColor)),
+                child: Text('Filter', style: TextStyle(color: Colors.black)),
               ),
             ),
           ],

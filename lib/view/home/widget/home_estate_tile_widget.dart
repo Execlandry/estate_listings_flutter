@@ -3,8 +3,8 @@ import 'package:estate_listings/models/home/home_estate_api_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeEstateTileWidget extends StatelessWidget {
-  final HomeEstateApiModel homeEstateApiModel;
-  const HomeEstateTileWidget({Key? key, required this.homeEstateApiModel})
+  // final HomeEstateApiModel homeEstateApiModel;
+  const HomeEstateTileWidget({Key? key, })/*required this.homeEstateApiModel*/
       : super(key: key);
 
   @override
@@ -38,23 +38,23 @@ class HomeEstateTileWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
-            child: CarouselSlider.builder(
-              itemCount: homeEstateApiModel.imagePath.length,
-              itemBuilder: (BuildContext context, int index, int realIndex) {
-                return Image.asset(
-                  homeEstateApiModel.imagePath[index],
-                  height: 140,
-                  fit: BoxFit.cover,
-                );
-              },
-              options: CarouselOptions(
-                height: 160,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: false,
-                autoPlay: true,
-                viewportFraction: 0.8,
-              ),
-            ),
+            // child: CarouselSlider.builder(
+            //   itemCount: homeEstateApiModel.imagePath.length,
+            //   itemBuilder: (BuildContext context, int index, int realIndex) {
+            //     return Image.asset(
+            //       homeEstateApiModel.imagePath[index],
+            //       height: 140,
+            //       fit: BoxFit.cover,
+            //     );
+            //   },
+            //   options: CarouselOptions(
+            //     height: 160,
+            //     enlargeCenterPage: true,
+            //     enableInfiniteScroll: false,
+            //     autoPlay: true,
+            //     viewportFraction: 0.8,
+            //   ),
+            // ),
           ),
           SizedBox(
             height: 15,
@@ -69,12 +69,14 @@ class HomeEstateTileWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "${homeEstateApiModel.name} -city",
+                  "city",
+                  // "${homeEstateApiModel.name} -city",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "${homeEstateApiModel.price} -street",
+                  "steet",
+                  // "${homeEstateApiModel.price} -street",
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 10),
