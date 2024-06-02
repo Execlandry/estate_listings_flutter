@@ -1,146 +1,27 @@
 class HomeListFilterModel {
-  Filters? filters;
-  Listings? listings;
+  List<Listings>? listings;
 
-  HomeListFilterModel({this.filters, this.listings});
+  HomeListFilterModel({this.listings});
 
   HomeListFilterModel.fromJson(Map<String, dynamic> json) {
-    filters =
-        json['filters'] != null ? new Filters.fromJson(json['filters']) : null;
-    listings = json['listings'] != null
-        ? new Listings.fromJson(json['listings'])
-        : null;
+    if (json['listings'] != null) {
+      listings = <Listings>[];
+      json['listings'].forEach((v) {
+        listings!.add(new Listings.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.filters != null) {
-      data['filters'] = this.filters!.toJson();
-    }
     if (this.listings != null) {
-      data['listings'] = this.listings!.toJson();
+      data['listings'] = this.listings!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Filters {
-  String? priceFrom;
-  Null? priceTo;
-  String? beds;
-  String? baths;
-  Null? areaFrom;
-  Null? areaTo;
-
-  Filters(
-      {this.priceFrom,
-      this.priceTo,
-      this.beds,
-      this.baths,
-      this.areaFrom,
-      this.areaTo});
-
-  Filters.fromJson(Map<String, dynamic> json) {
-    priceFrom = json['priceFrom'];
-    priceTo = json['priceTo'];
-    beds = json['beds'];
-    baths = json['baths'];
-    areaFrom = json['areaFrom'];
-    areaTo = json['areaTo'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['priceFrom'] = this.priceFrom;
-    data['priceTo'] = this.priceTo;
-    data['beds'] = this.beds;
-    data['baths'] = this.baths;
-    data['areaFrom'] = this.areaFrom;
-    data['areaTo'] = this.areaTo;
     return data;
   }
 }
 
 class Listings {
-  int? currentPage;
-  List<Data>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  List<Links>? links;
-  Null? nextPageUrl;
-  String? path;
-  int? perPage;
-  Null? prevPageUrl;
-  int? to;
-  int? total;
-
-  Listings(
-      {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.links,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
-
-  Listings.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    if (json['links'] != null) {
-      links = <Links>[];
-      json['links'].forEach((v) {
-        links!.add(new Links.fromJson(v));
-      });
-    }
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['current_page'] = this.currentPage;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    data['first_page_url'] = this.firstPageUrl;
-    data['from'] = this.from;
-    data['last_page'] = this.lastPage;
-    data['last_page_url'] = this.lastPageUrl;
-    if (this.links != null) {
-      data['links'] = this.links!.map((v) => v.toJson()).toList();
-    }
-    data['next_page_url'] = this.nextPageUrl;
-    data['path'] = this.path;
-    data['per_page'] = this.perPage;
-    data['prev_page_url'] = this.prevPageUrl;
-    data['to'] = this.to;
-    data['total'] = this.total;
-    return data;
-  }
-}
-
-class Data {
   int? id;
   String? createdAt;
   String? updatedAt;
@@ -157,8 +38,9 @@ class Data {
   Null? soldAt;
   String? latitude;
   String? longitude;
+  List<Images>? images;
 
-  Data(
+  Listings(
       {this.id,
       this.createdAt,
       this.updatedAt,
@@ -174,9 +56,10 @@ class Data {
       this.deletedAt,
       this.soldAt,
       this.latitude,
-      this.longitude});
+      this.longitude,
+      this.images});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Listings.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -193,6 +76,12 @@ class Data {
     soldAt = json['sold_at'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    if (json['images'] != null) {
+      images = <Images>[];
+      json['images'].forEach((v) {
+        images!.add(new Images.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -213,28 +102,46 @@ class Data {
     data['sold_at'] = this.soldAt;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
+    if (this.images != null) {
+      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
-class Links {
-  String? url;
-  String? label;
-  bool? active;
+class Images {
+  int? id;
+  String? createdAt;
+  String? updatedAt;
+  String? filename;
+  int? listingId;
+  String? src;
 
-  Links({this.url, this.label, this.active});
+  Images(
+      {this.id,
+      this.createdAt,
+      this.updatedAt,
+      this.filename,
+      this.listingId,
+      this.src});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    label = json['label'];
-    active = json['active'];
+  Images.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    filename = json['filename'];
+    listingId = json['listing_id'];
+    src = json['src'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['label'] = this.label;
-    data['active'] = this.active;
+    data['id'] = this.id;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['filename'] = this.filename;
+    data['listing_id'] = this.listingId;
+    data['src'] = this.src;
     return data;
   }
 }

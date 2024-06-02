@@ -1,82 +1,100 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:estate_listings/models/home/home_estate_api_model.dart';
+import 'package:estate_listings/res/assets/image_assets.dart';
 import 'package:flutter/material.dart';
 
 class HomeEstateTileWidget extends StatelessWidget {
-  // final HomeEstateApiModel homeEstateApiModel;
-  const HomeEstateTileWidget({Key? key, })/*required this.homeEstateApiModel*/
-      : super(key: key);
+  final String city;
+  final String street;
+  final String beds;
+  final String baths;
+  final String area;
+  final String price;
+  final List<String>? imagePaths;
+
+  const HomeEstateTileWidget({
+    Key? key,
+    required this.city,
+    required this.street,
+    required this.beds,
+    required this.baths,
+    required this.area,
+    required this.price,
+    this.imagePaths,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
-          // ButtonBar(
-          //   alignment: MainAxisAlignment.center,
-          //   children: [
-          //     ElevatedButton(
-          //       onPressed: () {
-          //         Get.toNamed(RouteName.offerView);
-          //       },
-          //       child: Text(
-          //           "Offers(${info.offersCount.toString()})"),
-          //     ),
-          //     ElevatedButton(
-          //       onPressed: () {},
-          //       child: Text(
-          //           "Images(${info.imagesCount.toString()})"),
-          //     ),
-          //   ],
-          // ),
-
           Container(
             height: 200,
-            // width: 200,
-            //Fixed width for the CarouselSlider
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
-            // child: CarouselSlider.builder(
-            //   itemCount: homeEstateApiModel.imagePath.length,
-            //   itemBuilder: (BuildContext context, int index, int realIndex) {
-            //     return Image.asset(
-            //       homeEstateApiModel.imagePath[index],
-            //       height: 140,
-            //       fit: BoxFit.cover,
-            //     );
-            //   },
-            //   options: CarouselOptions(
-            //     height: 160,
-            //     enlargeCenterPage: true,
-            //     enableInfiniteScroll: false,
-            //     autoPlay: true,
-            //     viewportFraction: 0.8,
-            //   ),
-            // ),
+            child: imagePaths != null && imagePaths!.isNotEmpty
+                ? CarouselSlider.builder(
+                    itemCount: imagePaths!.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      final imagePath = imagePaths![index];
+                      return FadeInImage.assetNetwork(
+                        placeholder:
+                            ImageAssets.house1,
+                        image: imagePath,
+                        height: 140,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Icon(
+                              Icons.error_outline,
+                              color: Colors.red,
+                              size: 40,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 160,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      autoPlay: true,
+                      viewportFraction: 0.8,
+                    ),
+                  )
+                : SizedBox(
+                    height: 160, // Match the height of the CarouselSlider
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(
+                          image: AssetImage(ImageAssets.noImageAvailable),
+                          height: 100, 
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: 20),
+                        Text("No image available"),
+                      ],
+                    ),
+                  ),
           ),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           Center(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "₹",
+                  "₹$price",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "city",
-                  // "${homeEstateApiModel.name} -city",
+                  "$city - city",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "steet",
-                  // "${homeEstateApiModel.price} -street",
+                  "$street - street",
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 10),
@@ -84,43 +102,40 @@ class HomeEstateTileWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Beds",
-                      style: TextStyle(
+                    if (beds.isNotEmpty)
+                      Text(
+                        "$beds Beds",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          color: Colors.grey.shade600),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      // "${info.baths.toString()} Baths",
-                      "Baths",
-                      style: TextStyle(
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    if (beds.isNotEmpty) SizedBox(width: 5),
+                    if (baths.isNotEmpty)
+                      Text(
+                        "$baths Baths",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          color: Colors.grey.shade600),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      " m²",
-                      style: TextStyle(
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    if (baths.isNotEmpty) SizedBox(width: 5),
+                    if (area.isNotEmpty)
+                      Text(
+                        "$area m²",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          color: Colors.grey.shade600),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                   ],
                 ),
               ],
             ),
           ),
-          // SizedBox(height: 20),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:estate_listings/data/network/network_api_services.dart';
+import 'package:estate_listings/models/home/home_estate_api_model.dart';
 import 'package:estate_listings/models/home/home_list_filter_model/home_list_filter_model.dart';
 
 import 'package:estate_listings/res/app_url/app_url.dart';
@@ -10,9 +11,29 @@ class HomeRepository {
   final _userPreference = UserPreferences();
 
   Future<dynamic> homeEstateApi() async {
-    dynamic response = await _apiService.getApi(AppUrl.homeEstateApi);
 
-    // return UserListModel.fromJson(response);
+    try {
+      final sharedInfo = await _userPreference.getUser();
+      if (sharedInfo.accessToken != null) {
+        final headers = {
+          'Authorization': '${sharedInfo.tokenType} ${sharedInfo.accessToken}'
+        };
+        dynamic response = await _apiService.getApi(AppUrl.homeEstateApi,headers: headers);
+        return HomeEstateApiModel.fromJson(response);
+      }
+      else {
+        throw Exception('Access token is null');
+      }
+
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error in homeEstateApi: $e');
+      }
+      return null;
+      
+    }
+
   }
 
   Future<dynamic> homeListingFilterApi({Map<String, dynamic>? filters}) async {

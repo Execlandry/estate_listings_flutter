@@ -18,7 +18,7 @@ class UserProfileView extends StatefulWidget {
 
 class _UserProfileViewState extends State<UserProfileView> {
   final userProfileController = Get.put(UserProfileViewModel());
-  UserPreferences userPreference = UserPreferences();
+  
 
   @override
   void initState() {
