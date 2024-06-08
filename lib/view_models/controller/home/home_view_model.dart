@@ -64,7 +64,7 @@ class HomeViewModel extends GetxController {
     _api.homeListingFilterApi(filters: filters).then((value) {
       setRxRequestStatus(Status.COMPLETED);
       setHomeListingFilterList(value);
-    }).onError((error, stackTrace) {
+      }).onError((error, stackTrace) {
       print(error);
       print(stackTrace);
       setError(error.toString());

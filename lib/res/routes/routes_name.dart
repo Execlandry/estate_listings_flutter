@@ -5,6 +5,6 @@ class RouteName{
   static const String userProfileView = '/user_profile_view';
   static const String offerView='/offer_view';
   static const String dashboardView='/dashboard_view';
-
+  static const String estateDetailsView='/estate_details_view';
 
 }

@@ -80,7 +80,7 @@ class HomeEstateTileWidget extends StatelessWidget {
                     ),
                   ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 5),
           Center(
             child: Column(
               children: [
@@ -89,12 +89,13 @@ class HomeEstateTileWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "$city - city",
+                  "${city[0].toUpperCase() + city.substring(1).toLowerCase()}",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "$street - street",
+                  "${street[0].toUpperCase()+street.substring(1).toLowerCase()}",
+                  textAlign: TextAlign.center, // Align street text to center
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 10),

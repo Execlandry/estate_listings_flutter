@@ -11,6 +11,9 @@ class AppColor{
 
 
   static const Color primaryColor= Color.fromARGB(255, 138, 60, 55);
+  static const Color bannerColor= Color.fromARGB(255, 109, 83, 81);
+
+
 
   static const Color primaryButtonColor= Color(0xff01B1C9);
   static const Color secondaryButtonColor= Color(0xffFC3F5B);

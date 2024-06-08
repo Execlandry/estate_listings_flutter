@@ -1,11 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:estate_listings/data/response/status.dart';
+import 'package:estate_listings/res/assets/image_assets.dart';
 import 'package:estate_listings/res/colors/app_color.dart';
+import 'package:estate_listings/res/components/internet_exceptions_widget.dart';
+import 'package:estate_listings/res/routes/routes_name.dart';
+import 'package:estate_listings/view/estate_details/estate_details_view.dart';
 import 'package:estate_listings/view/home/widget/home_estate_tile_widget.dart';
 import 'package:estate_listings/view/home/widget/home_filter_view_widget.dart';
 import 'package:estate_listings/view_models/controller/home/home_view_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -29,6 +35,42 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              decoration: BoxDecoration(
+                color: AppColor.bannerColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              margin: EdgeInsets.symmetric(horizontal: 25),
+              padding: EdgeInsets.all(25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        "Get 20% promo on your first Deal",
+                        style: TextStyle(
+                            // fontSize: 25,
+                            color: AppColor.whiteColor),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Buy Now ->",
+                        style: TextStyle(
+                            // fontSize: 25,
+                            color: AppColor.whiteColor),
+                      ),
+                    ],
+                  ),
+                  Image.asset(
+                    ImageAssets.house1,
+                    height: 80,
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -84,7 +126,7 @@ class _HomeViewState extends State<HomeView> {
                     )
                   : SizedBox.shrink(),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Text(
@@ -97,14 +139,20 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Obx(() {
               if (homeVM.rxRequestStatus.value == Status.LOADING) {
                 return Center(child: CircularProgressIndicator());
               } else if (homeVM.rxRequestStatus.value == Status.ERROR) {
-                return Center(child: Text("Error Occurred"));
-              } else if (homeVM.rxRequestStatus.value == Status.COMPLETED) {
+                return InternetExceptionsWidget(
+                onPress: () {
+                  homeVM.refreshApi();
+                },
+              );
+              
+              } 
+              else if (homeVM.rxRequestStatus.value == Status.COMPLETED) {
                 return homeVM.isFilterApplied.value
                     ? SizedBox(
                         height: 350,
@@ -113,27 +161,40 @@ class _HomeViewState extends State<HomeView> {
                             itemCount: homeVM
                                 .homeListFilterList.value.listings!.length,
                             itemBuilder: (context, index, realIndex) {
-                              return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: HomeEstateTileWidget(
-                                      city: homeVM.homeListFilterList.value
-                                          .listings![index].city
-                                          .toString(),
-                                      street: homeVM.homeListFilterList.value
-                                          .listings![index].street
-                                          .toString(),
-                                      beds: homeVM.homeListFilterList.value
-                                          .listings![index].beds
-                                          .toString(),
-                                      baths: homeVM.homeListFilterList.value
-                                          .listings![index].baths
-                                          .toString(),
-                                      area: homeVM.homeListFilterList.value
-                                          .listings![index].area
-                                          .toString(),
-                                      price:
-                                          homeVM.homeListFilterList.value.listings![index].price.toString()));
+                              List<String> imagePaths = homeVM
+                                  .homeListFilterList.value.listings![index].images!
+                                  .map((image) => image.src!)
+                                  .toList();
+                              return GestureDetector(
+                                onTap: () {
+                                  var listingId = homeVM.homeListFilterList
+                                      .value.listings![index].id
+                                      .toString();
+
+                                  Get.toNamed(RouteName.estateDetailsView,
+                                      arguments: {'id': listingId});
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: HomeEstateTileWidget(
+                                        imagePaths: imagePaths,
+                                        city: homeVM.homeListFilterList.value.listings![index].city
+                                            .toString(),
+                                        street: homeVM.homeListFilterList.value
+                                            .listings![index].street
+                                            .toString(),
+                                        beds: homeVM.homeListFilterList.value
+                                            .listings![index].beds
+                                            .toString(),
+                                        baths: homeVM.homeListFilterList.value
+                                            .listings![index].baths
+                                            .toString(),
+                                        area: homeVM.homeListFilterList.value
+                                            .listings![index].area
+                                            .toString(),
+                                        price: homeVM.homeListFilterList.value.listings![index].price.toString())),
+                              );
                             },
                             options: CarouselOptions(
                               height: 700,
@@ -156,27 +217,39 @@ class _HomeViewState extends State<HomeView> {
                                   .homeEstateList.value.listings![index].images!
                                   .map((image) => image.src!)
                                   .toList();
-                              return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: HomeEstateTileWidget(
-                                      imagePaths: imagePaths,
-                                      city: homeVM.homeEstateList.value.listings![index].city
-                                          .toString(),
-                                      street: homeVM.homeEstateList.value
-                                          .listings![index].street
-                                          .toString(),
-                                      beds: homeVM.homeEstateList.value.listings![index].beds
-                                          .toString(),
-                                      baths: homeVM.homeEstateList.value
-                                          .listings![index].baths
-                                          .toString(),
-                                      area: homeVM.homeEstateList.value
-                                          .listings![index].area
-                                          .toString(),
-                                      price: homeVM.homeEstateList.value
-                                          .listings![index].price
-                                          .toString()));
+                              return GestureDetector(
+                                onTap: () {
+                                  String listingId = homeVM
+                                      .homeEstateList.value.listings![index].id
+                                      .toString();
+                                  Get.toNamed(RouteName.estateDetailsView,
+                                      arguments: {'id': listingId});
+
+                                  // Get.toNamed(RouteName.estateDetailsView,
+                                  //     arguments: {'id': listingId});
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: HomeEstateTileWidget(
+                                        imagePaths: imagePaths,
+                                        city: homeVM.homeEstateList.value
+                                            .listings![index].city
+                                            .toString(),
+                                        street: homeVM.homeEstateList.value
+                                            .listings![index].street
+                                            .toString(),
+                                        beds: homeVM.homeEstateList.value
+                                            .listings![index].beds
+                                            .toString(),
+                                        baths: homeVM.homeEstateList.value
+                                            .listings![index].baths
+                                            .toString(),
+                                        area: homeVM.homeEstateList.value
+                                            .listings![index].area
+                                            .toString(),
+                                        price: homeVM.homeEstateList.value.listings![index].price.toString())),
+                              );
                             },
                             options: CarouselOptions(
                               height: 700,
