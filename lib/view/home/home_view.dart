@@ -146,13 +146,11 @@ class _HomeViewState extends State<HomeView> {
                 return Center(child: CircularProgressIndicator());
               } else if (homeVM.rxRequestStatus.value == Status.ERROR) {
                 return InternetExceptionsWidget(
-                onPress: () {
-                  homeVM.refreshApi();
-                },
-              );
-              
-              } 
-              else if (homeVM.rxRequestStatus.value == Status.COMPLETED) {
+                  onPress: () {
+                    homeVM.refreshApi();
+                  },
+                );
+              } else if (homeVM.rxRequestStatus.value == Status.COMPLETED) {
                 return homeVM.isFilterApplied.value
                     ? SizedBox(
                         height: 350,
@@ -162,7 +160,10 @@ class _HomeViewState extends State<HomeView> {
                                 .homeListFilterList.value.listings!.length,
                             itemBuilder: (context, index, realIndex) {
                               List<String> imagePaths = homeVM
-                                  .homeListFilterList.value.listings![index].images!
+                                  .homeListFilterList
+                                  .value
+                                  .listings![index]
+                                  .images!
                                   .map((image) => image.src!)
                                   .toList();
                               return GestureDetector(

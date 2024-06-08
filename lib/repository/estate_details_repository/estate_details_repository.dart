@@ -20,7 +20,10 @@ class EstateDetailsRepository {
           'Authorization': '${sharedInfo.tokenType} ${sharedInfo.accessToken}'
         };
         dynamic response = await _apiService.getApi('${AppUrl.estateDetailsApi}$id',headers: headers);
-        return EstateDetailsApiModel.fromJson(response);
+        // if (kDebugMode) {
+        //   print('API Response: $response');
+        // }
+        return EstateDetailsApiModel.fromJson(response[0]);
       }
       else {
         throw Exception('Access token is null');
@@ -36,33 +39,6 @@ class EstateDetailsRepository {
     }
 
   }
-
-  // Future<dynamic> homeListingFilterApi({Map<String, dynamic>? filters}) async {
-  //   try {
-  //     final sharedInfo = await _userPreference.getUser();
-
-  //     final queryParameters = filters?.map((key, value) => MapEntry(key, value?.toString() ?? ''));
-
-  //     if (sharedInfo.accessToken != null) {
-  //       final headers = {
-  //         'Authorization': '${sharedInfo.tokenType} ${sharedInfo.accessToken}'
-  //       };
-
-  //       final uri = Uri.parse(AppUrl.homeListingFilterApi).replace(queryParameters: queryParameters);
-
-  //       dynamic response = await _apiService.getApi(uri.toString(), headers: headers);
-
-  //       return HomeListFilterModel.fromJson(response);
-  //     } else {
-  //       throw Exception('Access token is null');
-  //     }
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print('Error in homeListingFilterApi: $e');
-  //     }
-  //     return null;
-  //   }
-  // }
 }
 
 

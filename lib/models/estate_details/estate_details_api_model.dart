@@ -4,21 +4,20 @@ class EstateDetailsApiModel {
 
   EstateDetailsApiModel({this.listing, this.offerMade});
 
-  EstateDetailsApiModel.fromJson(Map<String, dynamic> json) {
-    listing =
-        json['listing'] != null ? new Listing.fromJson(json['listing']) : null;
-    offerMade = json['offerMade'] != null
-        ? new OfferMade.fromJson(json['offerMade'])
-        : null;
+  factory EstateDetailsApiModel.fromJson(Map<String, dynamic> json) {
+    return EstateDetailsApiModel(
+      listing: json['listing'] != null ? Listing.fromJson(json['listing']) : null,
+      offerMade: json['offerMade'] != null ? OfferMade.fromJson(json['offerMade']) : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.listing != null) {
-      data['listing'] = this.listing!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (listing != null) {
+      data['listing'] = listing!.toJson();
     }
-    if (this.offerMade != null) {
-      data['offerMade'] = this.offerMade!.toJson();
+    if (offerMade != null) {
+      data['offerMade'] = offerMade!.toJson();
     }
     return data;
   }
@@ -37,76 +36,76 @@ class Listing {
   String? streetNr;
   int? price;
   int? byUserId;
-  Null? deletedAt;
-  Null? soldAt;
+  String? deletedAt;
+  String? soldAt;
   String? latitude;
   String? longitude;
   List<Images>? images;
 
-  Listing(
-      {this.id,
-      this.createdAt,
-      this.updatedAt,
-      this.beds,
-      this.baths,
-      this.area,
-      this.city,
-      this.code,
-      this.street,
-      this.streetNr,
-      this.price,
-      this.byUserId,
-      this.deletedAt,
-      this.soldAt,
-      this.latitude,
-      this.longitude,
-      this.images});
+  Listing({
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.beds,
+    this.baths,
+    this.area,
+    this.city,
+    this.code,
+    this.street,
+    this.streetNr,
+    this.price,
+    this.byUserId,
+    this.deletedAt,
+    this.soldAt,
+    this.latitude,
+    this.longitude,
+    this.images,
+  });
 
-  Listing.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    beds = json['beds'];
-    baths = json['baths'];
-    area = json['area'];
-    city = json['city'];
-    code = json['code'];
-    street = json['street'];
-    streetNr = json['street_nr'];
-    price = json['price'];
-    byUserId = json['by_user_id'];
-    deletedAt = json['deleted_at'];
-    soldAt = json['sold_at'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    if (json['images'] != null) {
-      images = <Images>[];
-      json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
-      });
-    }
+  factory Listing.fromJson(Map<String, dynamic> json) {
+    return Listing(
+      id: json['id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      beds: json['beds'],
+      baths: json['baths'],
+      area: json['area'],
+      city: json['city'],
+      code: json['code'],
+      street: json['street'],
+      streetNr: json['street_nr'],
+      price: json['price'],
+      byUserId: json['by_user_id'],
+      deletedAt: json['deleted_at'],
+      soldAt: json['sold_at'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      images: (json['images'] as List<dynamic>?)
+          ?.map((item) => Images.fromJson(item))
+          .toList(),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['beds'] = this.beds;
-    data['baths'] = this.baths;
-    data['area'] = this.area;
-    data['city'] = this.city;
-    data['code'] = this.code;
-    data['street'] = this.street;
-    data['street_nr'] = this.streetNr;
-    data['price'] = this.price;
-    data['by_user_id'] = this.byUserId;
-    data['deleted_at'] = this.deletedAt;
-    data['sold_at'] = this.soldAt;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['beds'] = beds;
+    data['baths'] = baths;
+    data['area'] = area;
+    data['city'] = city;
+    data['code'] = code;
+    data['street'] = street;
+    data['street_nr'] = streetNr;
+    data['price'] = price;
+    data['by_user_id'] = byUserId;
+    data['deleted_at'] = deletedAt;
+    data['sold_at'] = soldAt;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    if (images != null) {
+      data['images'] = images!.map((image) => image.toJson()).toList();
     }
     return data;
   }
@@ -120,31 +119,34 @@ class Images {
   int? listingId;
   String? src;
 
-  Images(
-      {this.id,
-      this.createdAt,
-      this.updatedAt,
-      this.filename,
-      this.listingId,
-      this.src});
+  Images({
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.filename,
+    this.listingId,
+    this.src,
+  });
 
-  Images.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    filename = json['filename'];
-    listingId = json['listing_id'];
-    src = json['src'];
+  factory Images.fromJson(Map<String, dynamic> json) {
+    return Images(
+      id: json['id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      filename: json['filename'],
+      listingId: json['listing_id'],
+      src: json['src'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['filename'] = this.filename;
-    data['listing_id'] = this.listingId;
-    data['src'] = this.src;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['filename'] = filename;
+    data['listing_id'] = listingId;
+    data['src'] = src;
     return data;
   }
 }
@@ -156,40 +158,43 @@ class OfferMade {
   int? listingId;
   int? bidderId;
   int? amount;
-  Null? acceptedAt;
-  Null? rejectedAt;
+  String? acceptedAt;
+  String? rejectedAt;
 
-  OfferMade(
-      {this.id,
-      this.createdAt,
-      this.updatedAt,
-      this.listingId,
-      this.bidderId,
-      this.amount,
-      this.acceptedAt,
-      this.rejectedAt});
+  OfferMade({
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.listingId,
+    this.bidderId,
+    this.amount,
+    this.acceptedAt,
+    this.rejectedAt,
+  });
 
-  OfferMade.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    listingId = json['listing_id'];
-    bidderId = json['bidder_id'];
-    amount = json['amount'];
-    acceptedAt = json['accepted_at'];
-    rejectedAt = json['rejected_at'];
+  factory OfferMade.fromJson(Map<String, dynamic> json) {
+    return OfferMade(
+      id: json['id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      listingId: json['listing_id'],
+      bidderId: json['bidder_id'],
+      amount: json['amount'],
+      acceptedAt: json['accepted_at'],
+      rejectedAt: json['rejected_at'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['listing_id'] = this.listingId;
-    data['bidder_id'] = this.bidderId;
-    data['amount'] = this.amount;
-    data['accepted_at'] = this.acceptedAt;
-    data['rejected_at'] = this.rejectedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['listing_id'] = listingId;
+    data['bidder_id'] = bidderId;
+    data['amount'] = amount;
+    data['accepted_at'] = acceptedAt;
+    data['rejected_at'] = rejectedAt;
     return data;
   }
 }

@@ -40,8 +40,7 @@ class HomeEstateTileWidget extends StatelessWidget {
                         (BuildContext context, int index, int realIndex) {
                       final imagePath = imagePaths![index];
                       return FadeInImage.assetNetwork(
-                        placeholder:
-                            ImageAssets.house1,
+                        placeholder: ImageAssets.house1,
                         image: imagePath,
                         height: 140,
                         fit: BoxFit.cover,
@@ -71,11 +70,11 @@ class HomeEstateTileWidget extends StatelessWidget {
                       children: [
                         Image(
                           image: AssetImage(ImageAssets.noImageAvailable),
-                          height: 100, 
+                          height: 100,
                           fit: BoxFit.cover,
                         ),
                         SizedBox(height: 20),
-                        Text("No image available"),
+                        Text("No images available"),
                       ],
                     ),
                   ),
@@ -94,7 +93,7 @@ class HomeEstateTileWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "${street[0].toUpperCase()+street.substring(1).toLowerCase()}",
+                  "${street[0].toUpperCase() + street.substring(1).toLowerCase()}",
                   textAlign: TextAlign.center, // Align street text to center
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
