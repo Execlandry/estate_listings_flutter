@@ -1,7 +1,9 @@
+import 'package:estate_listings/res/assets/image_assets.dart';
+import 'package:estate_listings/res/colors/app_color.dart';
+import 'package:estate_listings/res/fonts/app_fonts.dart';
 import 'package:estate_listings/view_models/services/splash_services.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+// import 'package:google_fonts/google_fonts.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -11,7 +13,6 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-
   SplashViewServices splashView = SplashViewServices();
 
   @override
@@ -20,10 +21,62 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
     splashView.isLogin();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // body: Image(image: AssetImage(ImageAssets.SplashView)),
+    return const Scaffold(
+      backgroundColor: AppColor.primaryColor,
+      body: Padding(
+        padding: EdgeInsets.all(25.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "ESTATE LISTING",
+              style: TextStyle(
+                  fontFamily: AppFonts.tomatoesFont,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.whiteColor),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Padding(
+              padding: EdgeInsets.all(50.0),
+              child: Image(
+                image: AssetImage(ImageAssets.splashView),
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "The estates you have always dreamed of",
+              style: TextStyle(
+                  fontFamily: AppFonts.tomatoesFont,
+                  fontSize: 44,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.whiteColor),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "it will never be the same again",
+              style: TextStyle(
+                  color: AppColor.greyColor,
+                  height: 2,),
+            ),
+
+            SizedBox(height: 25,),
+          ],
+        ),
+      ),
+
       // body: InternetExceptionsWidget(onPress: () {  },),
       // body: GeneralExceptionsWidget(onPress: () {  },),
       // body: Column(
@@ -43,13 +96,13 @@ class _SplashViewState extends State<SplashView> {
       //   Utils.toastMessageCenter("Exeboii2");
       // }),
 
-      backgroundColor: Colors.teal,
-      body: Center(
-        child: Text(
-          "Welcome_back".tr,
-          textAlign: TextAlign.center,
-        ),
-      ),
+      // backgroundColor: Colors.teal,
+      // body: Center(
+      //   child: Text(
+      //     "Welcome_back".tr,
+      //     textAlign: TextAlign.center,
+      //   ),
+      // ),
     );
   }
 }

@@ -1,11 +1,11 @@
-class UserApiModel {
+class UserLoginApiModel {
   String? accessToken;
   String? tokenType;
   bool? isLogin;
 
-  UserApiModel({this.accessToken, this.tokenType,this.isLogin});
+  UserLoginApiModel({this.accessToken, this.tokenType, this.isLogin});
 
-  UserApiModel.fromJson(Map<String, dynamic> json) {
+  UserLoginApiModel.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     isLogin = json['isLogin'];
@@ -16,7 +16,6 @@ class UserApiModel {
     data['access_token'] = accessToken;
     data['token_type'] = tokenType;
     data['isLogin'] = isLogin;
-
 
     return data;
   }

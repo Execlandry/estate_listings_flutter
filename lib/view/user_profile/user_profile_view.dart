@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:estate_listings/data/response/status.dart';
+import 'package:estate_listings/res/colors/app_color.dart';
 import 'package:estate_listings/res/components/general_exceptions_widget.dart';
 import 'package:estate_listings/res/components/internet_exceptions_widget.dart';
 import 'package:estate_listings/res/routes/routes_name.dart';
@@ -22,25 +23,13 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   void initState() {
     super.initState();
-    userProfileController.userListingsApi();
+    userProfileController.userEstatesApi();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {
-              userPreference.removeUser().then((value) {
-                Get.toNamed(RouteName.loginView);
-              });
-            },
-            icon: Icon(Icons.logout),
-          ),
-        ],
-      ),
+      backgroundColor: AppColor.transparentColor,
       body: Obx(() {
         switch (userProfileController.rxRequestStatus.value) {
           case Status.LOADING:
@@ -63,7 +52,7 @@ class _UserProfileViewState extends State<UserProfileView> {
             }
           case Status.COMPLETED:
             return Container(
-              color: Colors.deepPurple[100],
+              // color: Colors.deepPurple[100],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
