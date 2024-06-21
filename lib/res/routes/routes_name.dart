@@ -7,4 +7,5 @@ class RouteName{
   static const String dashboardView='/dashboard_view';
   static const String estateDetailsView='/estate_details_view';
 
+
 }
