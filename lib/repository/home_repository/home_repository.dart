@@ -2,12 +2,14 @@ import 'package:estate_listings/data/network/network_api_services.dart';
 import 'package:estate_listings/models/home/home_estate_api_model.dart';
 import 'package:estate_listings/models/home/home_list_filter_model/home_list_filter_model.dart';
 
+
 import 'package:estate_listings/res/app_url/app_url.dart';
 import 'package:estate_listings/view_models/controller/user_preference/user_preference.dart';
 import 'package:flutter/foundation.dart';
 
 class HomeRepository {
   final _apiService = NetworkApiServices();
+
   final _userPreference = UserPreferences();
 
   Future<dynamic> homeEstateApi() async {

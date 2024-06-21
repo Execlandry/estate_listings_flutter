@@ -5,6 +5,7 @@ import 'package:estate_listings/res/colors/app_color.dart';
 import 'package:estate_listings/res/components/internet_exceptions_widget.dart';
 import 'package:estate_listings/res/routes/routes_name.dart';
 import 'package:estate_listings/view/estate_details/estate_details_view.dart';
+
 import 'package:estate_listings/view/home/widget/home_estate_tile_widget.dart';
 import 'package:estate_listings/view/home/widget/home_filter_view_widget.dart';
 import 'package:estate_listings/view_models/controller/home/home_view_model.dart';
@@ -14,6 +15,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 class HomeView extends StatefulWidget {
+
+  const HomeView({Key? key}) : super(key: key);
+
+
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -24,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+
     homeVM.homeEstateList();
   }
 
@@ -35,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Container(
               decoration: BoxDecoration(
                 color: AppColor.bannerColor,
@@ -113,6 +120,7 @@ class _HomeViewState extends State<HomeView> {
               () => homeVM.isFilterMenuVisible.value
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
+
                       child: HomeFilterViewWidget(
                         onClearFilters: () {
                           homeVM.isFilterApplied.value = false; // Clear filters

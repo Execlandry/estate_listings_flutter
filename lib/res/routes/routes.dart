@@ -1,6 +1,8 @@
 import 'package:estate_listings/res/routes/routes_name.dart';
 import 'package:estate_listings/view/dashboard/dashboard_view.dart';
+
 import 'package:estate_listings/view/estate_details/estate_details_view.dart';
+
 import 'package:estate_listings/view/home/home_view.dart';
 import 'package:estate_listings/view/login/login_view.dart';
 import 'package:estate_listings/view/splash_view.dart';

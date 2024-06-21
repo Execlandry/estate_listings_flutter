@@ -144,4 +144,3 @@ class Images {
     data['src'] = this.src;
     return data;
   }
-}

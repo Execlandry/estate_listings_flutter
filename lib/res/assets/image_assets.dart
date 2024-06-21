@@ -5,4 +5,5 @@ class ImageAssets {
 
   static const String noImageAvailable = "assets/icons/noimage.png";
 
+
 }

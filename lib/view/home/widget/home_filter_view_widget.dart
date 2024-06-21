@@ -1,24 +1,29 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 typedef void FilterCallback(Map<String, dynamic> filters);
 
 class HomeFilterController extends GetxController {
+
   final TextEditingController priceFromController = TextEditingController();
   final TextEditingController priceToController = TextEditingController();
   final TextEditingController areaFromController = TextEditingController();
   final TextEditingController areaToController = TextEditingController();
+
 
   final RxString selectedBeds = ''.obs;
   final RxString selectedBaths = ''.obs;
 
   final List<String> bedBathOptions = ['', '1', '2', '3', '4', '5', '6+'];
 
+
   void clearFilters() {
     priceFromController.clear();
     priceToController.clear();
     areaFromController.clear();
     areaToController.clear();
+
     selectedBeds.value = '';
     selectedBaths.value = '';
   }
@@ -62,6 +67,7 @@ class HomeFilterViewWidget extends StatelessWidget {
             Expanded(
               child: TextField(
                 controller: controller.priceFromController,
+
                 decoration: InputDecoration(
                   labelText: 'Price From',
                   border: OutlineInputBorder(
@@ -74,6 +80,7 @@ class HomeFilterViewWidget extends StatelessWidget {
             SizedBox(width: 10),
             Expanded(
               child: TextField(
+
                 controller: controller.priceToController,
                 decoration: InputDecoration(
                   labelText: 'Price To',
@@ -91,6 +98,7 @@ class HomeFilterViewWidget extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+
                 controller: controller.areaFromController,
                 decoration: InputDecoration(
                   labelText: 'Area From',
@@ -125,6 +133,7 @@ class HomeFilterViewWidget extends StatelessWidget {
                   value: controller.selectedBeds.value,
                   onChanged: (newValue) {
                     controller.selectedBeds.value = newValue!;
+
                   },
                   decoration: InputDecoration(
                     labelText: 'Beds',

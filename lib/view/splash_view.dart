@@ -26,7 +26,6 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColor.primaryColor,
-      
       body: Padding(
         padding: EdgeInsets.all(25.0),
         child: Column(
@@ -68,6 +67,7 @@ class _SplashViewState extends State<SplashView> {
             SizedBox(
               height: 10,
             ),
+
             Center(
               child: Text(
                 "it will never be the same again",

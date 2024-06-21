@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:estate_listings/res/assets/image_assets.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class HomeEstateTileWidget extends StatelessWidget {
     required this.price,
     this.imagePaths,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +95,7 @@ class HomeEstateTileWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
+
                   "${street[0].toUpperCase() + street.substring(1).toLowerCase()}",
                   textAlign: TextAlign.center, // Align street text to center
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
