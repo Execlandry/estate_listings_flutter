@@ -35,12 +35,14 @@ class _SplashViewState extends State<SplashView> {
             SizedBox(
               height: 25,
             ),
-            Text(
-              "ESTATE LISTING",
-              style: TextStyle(
-                  fontFamily: AppFonts.tomatoesFont,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.whiteColor),
+            Center(
+              child: Text(
+                "EXE ESTATES",
+                style: TextStyle(
+                    // fontFamily: AppFonts.tomatoesFont,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.whiteColor),
+              ),
             ),
             SizedBox(
               height: 25,
@@ -58,21 +60,26 @@ class _SplashViewState extends State<SplashView> {
               "The estates you have always dreamed of",
               style: TextStyle(
                   fontFamily: AppFonts.tomatoesFont,
-                  fontSize: 44,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: AppColor.whiteColor),
             ),
             SizedBox(
               height: 10,
             ),
-            Text(
-              "it will never be the same again",
-              style: TextStyle(
-                  color: AppColor.greyColor,
-                  height: 2,),
-            ),
 
-            SizedBox(height: 25,),
+            Center(
+              child: Text(
+                "it will never be the same again",
+                style: TextStyle(
+                  color: AppColor.greyColor,
+                  height: 2,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
           ],
         ),
       ),

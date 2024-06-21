@@ -1,9 +1,9 @@
-class HomeEstateApiModel {
+class HomeListFilterModel {
   List<Listings>? listings;
 
-  HomeEstateApiModel({this.listings});
+  HomeListFilterModel({this.listings});
 
-  HomeEstateApiModel.fromJson(Map<String, dynamic> json) {
+  HomeListFilterModel.fromJson(Map<String, dynamic> json) {
     if (json['listings'] != null) {
       listings = <Listings>[];
       json['listings'].forEach((v) {
@@ -144,3 +144,4 @@ class Images {
     data['src'] = this.src;
     return data;
   }
+}

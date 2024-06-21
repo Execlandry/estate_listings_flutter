@@ -15,10 +15,11 @@ class SplashViewServices {
         print(value.isLogin);
       }
       if (value.isLogin == false || value.isLogin.toString() == 'null') {
-        Timer(Duration(seconds: 3), () => Get.toNamed(RouteName.loginView));
+        Timer(Duration(seconds: 3), () => Get.offAllNamed(RouteName.loginView));
       } else {
         //change this path to make redirect after splash screen
-        Timer(Duration(seconds: 3), () => Get.toNamed(RouteName.dashboardView));
+        Timer(Duration(seconds: 3),
+            () => Get.offAllNamed(RouteName.dashboardView));
       }
     });
   }

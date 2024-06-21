@@ -28,18 +28,19 @@ class _DashboardViewState extends State<DashboardView> {
         automaticallyImplyLeading: false,
         backgroundColor: AppColor.transparentColor,
         elevation: 0,
-        title: Center(
-          child: const Text(
-            'Estates',
-            style: TextStyle(color: AppColor.blackColor),
-            textAlign: TextAlign.center,
-          ),
+        title: const Text(
+          'EXE ESTATES',
+          style: TextStyle(
+              color: AppColor.blackColor, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+
         ),
         actions: [
           IconButton(
             onPressed: () {
               userPreference.removeUser().then((value) {
-                Get.toNamed(RouteName.loginView);
+
+                Get.offAllNamed(RouteName.loginView);
               });
             },
             icon: Icon(Icons.logout),
@@ -64,15 +65,15 @@ class _DashboardViewState extends State<DashboardView> {
             selectedIndex: selectedIndex.value,
             tabs: [
               GButton(
-                onPressed: () {
-                  selectedIndex.value = 0;
-                },
-                icon: Icons.home,
-                text: 'Home',
-                iconColor: Colors.black,
-                textColor: Colors.black,
-                backgroundColor: AppColor.primaryColor
-              ),
+                  onPressed: () {
+                    selectedIndex.value = 0;
+                  },
+                  icon: Icons.home,
+                  text: 'Home',
+                  iconColor: Colors.black,
+                  textColor: Colors.black,
+                  backgroundColor: AppColor.primaryColor),
+
               GButton(
                 onPressed: () {
                   selectedIndex.value = 1;
@@ -83,28 +84,6 @@ class _DashboardViewState extends State<DashboardView> {
                 textColor: Colors.black,
                 backgroundColor: AppColor.primaryColor,
               ),
-              // GButton(
-              //   onPressed: () {
-              //     selectedIndex.value = 1;
-              //     // Navigate to the search view
-              //   },
-              //   icon: Icons.search,
-              //   text: 'Search',
-              //   iconColor: Colors.black,
-              //   textColor: Colors.black,
-              //   backgroundColor: Colors.deepPurple[200],
-              // ),
-              // GButton(
-              //   onPressed: () {
-              //     selectedIndex.value = 2;
-              //     // Navigate to the cart view
-              //   },
-              //   icon: Icons.shopping_cart,
-              //   text: 'Cart',
-              //   iconColor: Colors.black,
-              //   textColor: Colors.black,
-              //   backgroundColor: Colors.deepPurple[200],
-              // ),
             ],
           ),
         ),
